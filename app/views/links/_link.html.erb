@@ -1,5 +1,10 @@
 <div id="<%= dom_id link %>">
   <p>
+    <strong>Title:</strong>
+    <%= link.title %>
+  </p>
+
+  <p>
     <strong>Url:</strong>
     <%= link.url %>
   </p>
@@ -15,28 +20,28 @@
   </p>
 
   <p>
-    <strong>Archive url:</strong>
-    <%= link.archive_url %>
-  </p>
-
-  <p>
-    <strong>Text:</strong>
-    <%= link.text %>
-  </p>
-
-  <p>
     <strong>Published at:</strong>
     <%= link.published_at %>
   </p>
 
   <p>
-    <strong>Title:</strong>
-    <%= link.title %>
+    <strong>Notes:</strong>
+    <%= link.notes %>
   </p>
 
   <p>
-    <strong>Notes:</strong>
-    <%= link.notes %>
+    <strong>Archive url:</strong>
+    <%= link.archive_url %>
+  </p>
+
+  <p>
+    <strong>Tags:</strong>
+    <%= link.tags.map {|t| t.name}.join(', ') %>
+  </p>
+
+  <p>
+    <strong>Text:</strong>
+    <%= link.text %>
   </p>
 
 </div>

@@ -25,6 +25,7 @@ class LinksController < ApplicationController
 
     respond_to do |format|
       if @link.save
+        update_tags
         format.html { redirect_to link_url(@link), notice: "Link was successfully created." }
         format.json { render :show, status: :created, location: @link }
       else
@@ -38,6 +39,7 @@ class LinksController < ApplicationController
   def update
     respond_to do |format|
       if @link.update(link_params)
+        update_tags
         format.html { redirect_to link_url(@link), notice: "Link was successfully updated." }
         format.json { render :show, status: :ok, location: @link }
       else
@@ -63,8 +65,29 @@ class LinksController < ApplicationController
       @link = Link.find(params[:id])
     end
 
+    def update_tags
+      tags = []
+      link_tag_params[:tag_ids].split(',').each do |tag|
+        if (Integer(tag) rescue false)
+          if tag_record = Tag.find(tag)
+            tags << tag_record
+          else
+            Rails.logger.error("Missing tag with id=#{tag}")
+          end
+        else
+          new_tag = Tag.create(name: tag, category: 'topic')
+          tags << new_tag
+        end
+      end
+      @link.tags = tags
+    end
+
     # Only allow a list of trusted parameters through.
     def link_params
       params.require(:link).permit(:url, :source_url, :comment, :archive_url, :text, :published_at, :title, :notes)
+    end
+
+    def link_tag_params
+      params.require(:link).permit(:tag_ids)
     end
 end

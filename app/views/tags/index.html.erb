@@ -4,11 +4,8 @@
 
 <div id="tags">
   <% @tags.each do |tag| %>
-    <%= render tag %>
     <p>
-      <%= link_to "Show this tag", tag %>
+      <%= link_to tag.name, tag %>
     </p>
   <% end %>
 </div>
-
-<%= link_to "New tag", new_tag_path %>

@@ -1,4 +1,8 @@
-<%= form_with(model: link) do |form| %>
+<% if flash[:notice] %>
+  <p><%= flash[:notice] %></p>
+<% end %>
+
+<%= form_with model: @link do |form| %>
   <% if link.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(link.errors.count, "error") %> prohibited this link from being saved:</h2>
@@ -34,6 +38,15 @@
   <div>
     <%= form.label :published_at, style: "display: block" %>
     <%= form.datetime_field :published_at %>
+  </div>
+
+  <div>
+    <%= form.combobox :tag_ids,
+          Tag.all,
+          label: 'Tags',
+          multiselect_chip_src: possibly_new_tag_chips_path,
+          name_when_new: 'link[tag_ids]',
+          mobile_at: "0px" %>
   </div>
 
   <div>
