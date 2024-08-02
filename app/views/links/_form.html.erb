@@ -12,6 +12,11 @@
   <% end %>
 
   <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
     <%= form.label :url, style: "display: block" %>
     <%= form.text_field :url %>
   </div>
@@ -27,6 +32,16 @@
   </div>
 
   <div>
+    <%= form.label :published_at, style: "display: block" %>
+    <%= form.datetime_field :published_at %>
+  </div>
+
+  <div>
+    <%= form.label :notes, style: "display: block" %>
+    <%= form.text_area :notes %>
+  </div>
+
+  <div>
     <%= form.label :archive_url, style: "display: block" %>
     <%= form.text_field :archive_url %>
   </div>
@@ -34,21 +49,6 @@
   <div>
     <%= form.label :text, style: "display: block" %>
     <%= form.text_area :text %>
-  </div>
-
-  <div>
-    <%= form.label :published_at, style: "display: block" %>
-    <%= form.datetime_field :published_at %>
-  </div>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :notes, style: "display: block" %>
-    <%= form.text_area :notes %>
   </div>
 
   <div>
