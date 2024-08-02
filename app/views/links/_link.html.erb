@@ -36,7 +36,11 @@
 
   <p>
     <strong>Tags:</strong>
-    <%= link.tags.map {|t| t.name}.join(', ') %>
+    <ul>
+      <% link.tags.each do |tag| %>
+        <li><%= link_to tag.name, tag %></li>
+      <% end %>
+    </ul>
   </p>
 
   <p>

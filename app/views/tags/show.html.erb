@@ -1,10 +1,18 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @tag %>
-
+<h1><%= @tag.name %> (<%= @tag.category %>)</h1>
 <div>
   <%= link_to "Edit this tag", edit_tag_path(@tag) %> |
   <%= link_to "Back to tags", tags_path %>
 
   <%= button_to "Destroy this tag", @tag, method: :delete %>
 </div>
+
+<h2>Links</h2>
+<% @tag.links.each do |link| %>
+  <p>
+    <%= link.title %> - 
+    (<%= link_to "View", link %>
+    | <%= link_to "Edit", edit_link_path(link) %>)
+  </p>
+<% end %>

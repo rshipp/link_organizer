@@ -4,9 +4,10 @@
 
 <div id="links">
   <% @links.each do |link| %>
-    <%= render link %>
     <p>
-      <%= link_to "Show this link", link %>
+      <%= link.title %> - 
+      (<%= link_to "View", link %>
+      | <%= link_to "Edit", edit_link_path(link) %>)
     </p>
   <% end %>
 </div>
