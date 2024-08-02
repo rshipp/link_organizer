@@ -1,0 +1,57 @@
+<%= form_with(model: link) do |form| %>
+  <% if link.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(link.errors.count, "error") %> prohibited this link from being saved:</h2>
+
+      <ul>
+        <% link.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :url, style: "display: block" %>
+    <%= form.text_field :url %>
+  </div>
+
+  <div>
+    <%= form.label :source_url, style: "display: block" %>
+    <%= form.text_field :source_url %>
+  </div>
+
+  <div>
+    <%= form.label :comment, style: "display: block" %>
+    <%= form.text_area :comment %>
+  </div>
+
+  <div>
+    <%= form.label :archive_url, style: "display: block" %>
+    <%= form.text_field :archive_url %>
+  </div>
+
+  <div>
+    <%= form.label :text, style: "display: block" %>
+    <%= form.text_area :text %>
+  </div>
+
+  <div>
+    <%= form.label :published_at, style: "display: block" %>
+    <%= form.datetime_field :published_at %>
+  </div>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :notes, style: "display: block" %>
+    <%= form.text_area :notes %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
