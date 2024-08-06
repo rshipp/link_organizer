@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_action :set_link, only: %i[ show edit update destroy ]
+  before_action :set_link, only: %i[ show edit update destroy run_import ]
 
   # GET /links or /links.json
   def index
@@ -21,6 +21,13 @@ class LinksController < ApplicationController
 
   # POST /links/import
   def import_create
+    links = params.require(:links).split
+
+    links.each do |link|
+      Rails.logger.debug("Enqueuing job with url=#{link}")
+      ImportLinkJob.perform_later(link)
+    end
+
     respond_to do |format|
       format.html { redirect_to links_url, notice: "Link import started. It may take a few minutes for new links to appear." }
       format.json { render :show, status: :created, location: links_url }
@@ -44,6 +51,17 @@ class LinksController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @link.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # POST /links/1
+  def run_import
+    Rails.logger.debug("Enqueuing job with url=#{@link.url}")
+    ImportLinkJob.perform_later(@link.url)
+
+    respond_to do |format|
+      format.html { redirect_to link_url(@link), notice: "Link import started. It may take a few minutes to update." }
+      format.json { render :show, status: :created, location: link_url(@link) }
     end
   end
 
@@ -89,13 +107,14 @@ class LinksController < ApplicationController
             Rails.logger.error("Missing topic tag with id=#{tag_id}")
           end
         else
-          new_tag = Tag.create(name: tag, category: 'topic')
+          Rails.logger.info("Creating new tag=#{tag_id}")
+          new_tag = Tag.create(name: tag_id, category: 'topic')
           tags << new_tag
         end
       end
 
       # Then, source_type tags
-      link_tag_params[:source_type_ids].split(',').compact_blank.each do |tag_id|
+      link_tag_params[:source_type_ids].compact_blank.each do |tag_id|
         if tag = Tag.find(tag_id)
           tags << tag
         else

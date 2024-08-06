@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :links do
     get :import, to: 'links#import_new', on: :collection
     post :import, to: 'links#import_create', on: :collection
+    post :import, to: 'links#run_import', on: :member
   end
 
   # combobox

@@ -2,7 +2,11 @@
 
 <%= render "form", link: @link %>
 
-<br>
+<div>
+  <%= form_with url: import_link_path(@link) do |form| %>
+    <%= form.submit 'Run automatic import', class: 'btn-danger', data: { turbo_confirm: 'Are you sure? Existing information will be overwritten!' } %>
+  <% end %>
+</div>
 
 <div>
   <%= link_to "Show this link", @link %> |
