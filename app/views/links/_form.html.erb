@@ -69,9 +69,12 @@
       <%= form.text_area :notes %>
     </div>
 
-    <div>
+    <div data-controller="archive" data-archive-url-value="<%= @link.url %>">
       <%= form.label :archive_url %>
-      <%= form.text_field :archive_url %>
+      <%= form.text_field :archive_url,
+            data: {
+              'archive-target': 'input'
+            } %>
     </div>
 
     <div>
