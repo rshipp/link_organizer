@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :tags
-  resources :links
+  resources :links do
+    get :import, to: 'links#import_new', on: :collection
+    post :import, to: 'links#import_create', on: :collection
+  end
 
   # combobox
   post "possibly_new_tag_chips", to: "tag_chips#create_possibly_new"

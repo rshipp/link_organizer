@@ -1,0 +1,16 @@
+<h1>Import links</h1>
+
+<div class="not-prose max-w-full w-full">
+  <%= form_with url: import_links_path, class: "flex flex-col space-y-4" do |form| %>
+    <%= form.label :links, "Enter links, one per line" %>
+    <%= form.text_area :links, rows: 10 %>
+
+    <%= form.submit "Import" %>
+  <% end %>
+</div>
+
+<br>
+
+<div>
+  <%= link_to "Back to links", links_path %>
+</div>

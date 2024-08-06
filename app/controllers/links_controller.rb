@@ -15,6 +15,18 @@ class LinksController < ApplicationController
     @link = Link.new
   end
 
+  # GET /links/import
+  def import_new
+  end
+
+  # POST /links/import
+  def import_create
+    respond_to do |format|
+      format.html { redirect_to links_url, notice: "Link import started. It may take a few minutes for new links to appear." }
+      format.json { render :show, status: :created, location: links_url }
+    end
+  end
+
   # GET /links/1/edit
   def edit
   end
