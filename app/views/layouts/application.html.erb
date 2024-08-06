@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
@@ -13,6 +14,10 @@
   </head>
 
   <body>
-    <%= yield %>
+    <main class="container w-md mx-auto mt-28 px-5 mb-28">
+      <div class="prose max-w-none">
+        <%= yield %>
+      </div>
+    </main>
   </body>
 </html>

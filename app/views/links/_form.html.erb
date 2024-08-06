@@ -2,79 +2,85 @@
   <p><%= flash[:notice] %></p>
 <% end %>
 
-<%= form_with model: @link do |form| %>
-  <% if link.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(link.errors.count, "error") %> prohibited this link from being saved:</h2>
+<div class="not-prose max-w-lg">
+  <%= form_with model: @link, class: "flex flex-col space-y-4" do |form| %>
+    <% if link.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(link.errors.count, "error") %> prohibited this link from being saved:</h2>
 
-      <ul>
-        <% link.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <ul>
+          <% link.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div class="mt-6">
+      <%= form.label :url %>
+      <%= form.text_field :url %>
+    </div>
+
+    <div>
+      <%= form.label :source_url %>
+      <%= form.text_field :source_url %>
+    </div>
+
+    <div>
+      <%= form.label :comment %>
+      <%= form.text_area :comment %>
+    </div>
+
+    <div>
+      <%= form.label :published_at %>
+      <%= form.datetime_field :published_at %>
+    </div>
+
+    <div>
+      <fieldset>
+        <legend>Source type</legend>
+
+        <%= form.collection_check_boxes :source_type_ids,
+              Tag.where(category: 'source_type').order(:name),
+              :id, :humanized_name do |b| %>
+          <div>
+            <%= b.label(class: "inline-flex items-center") { b.check_box + b.text } %>
+          </div>
         <% end %>
-      </ul>
+      </fieldset>
+    </div>
+
+    <div>
+      <%= form.combobox :topic_ids,
+            Tag.where(category: 'topic').order(:name),
+            label: 'Tags',
+            multiselect_chip_src: possibly_new_tag_chips_path,
+            name_when_new: 'link[topic_ids]',
+            mobile_at: "0px" %>
+    </div>
+
+    <div>
+      <%= form.label :notes %>
+      <%= form.text_area :notes %>
+    </div>
+
+    <div>
+      <%= form.label :archive_url %>
+      <%= form.text_field :archive_url %>
+    </div>
+
+    <div>
+      <%= form.label :text %>
+      <%= form.text_area :text, rows: 10 %>
+    </div>
+
+    <div>
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :url, style: "display: block" %>
-    <%= form.text_field :url %>
-  </div>
-
-  <div>
-    <%= form.label :source_url, style: "display: block" %>
-    <%= form.text_field :source_url %>
-  </div>
-
-  <div>
-    <%= form.label :comment, style: "display: block" %>
-    <%= form.text_area :comment %>
-  </div>
-
-  <div>
-    <%= form.label :published_at, style: "display: block" %>
-    <%= form.datetime_field :published_at %>
-  </div>
-
-  <div>
-    <fieldset>
-      <legend>Source type</legend>
-
-      <%= form.collection_check_boxes :source_type_ids,
-            Tag.where(category: 'source_type').order(:name),
-            :id, :humanized_name %>
-    </fieldset>
-  </div>
-
-  <div>
-    <%= form.combobox :topic_ids,
-          Tag.where(category: 'topic').order(:name),
-          label: 'Tags',
-          multiselect_chip_src: possibly_new_tag_chips_path,
-          name_when_new: 'link[topic_ids]',
-          mobile_at: "0px" %>
-  </div>
-
-  <div>
-    <%= form.label :notes, style: "display: block" %>
-    <%= form.text_area :notes %>
-  </div>
-
-  <div>
-    <%= form.label :archive_url, style: "display: block" %>
-    <%= form.text_field :archive_url %>
-  </div>
-
-  <div>
-    <%= form.label :text, style: "display: block" %>
-    <%= form.text_area :text %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

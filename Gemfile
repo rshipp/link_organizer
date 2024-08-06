@@ -68,3 +68,4 @@ end
 
 # Custom gems below here.
 gem "hotwire_combobox"
+gem "tailwindcss-rails"
