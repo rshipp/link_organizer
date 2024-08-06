@@ -67,18 +67,31 @@ class LinksController < ApplicationController
 
     def update_tags
       tags = []
-      link_tag_params[:tag_ids].split(',').each do |tag|
-        if (Integer(tag) rescue false)
-          if tag_record = Tag.find(tag)
-            tags << tag_record
+
+      # First, topic tags
+      link_tag_params[:topic_ids].split(',').each do |tag_id|
+        if (Integer(tag_id) rescue false)
+          if tag = Tag.find(tag_id)
+            tags << tag
           else
-            Rails.logger.error("Missing tag with id=#{tag}")
+            Rails.logger.error("Missing topic tag with id=#{tag_id}")
           end
         else
           new_tag = Tag.create(name: tag, category: 'topic')
           tags << new_tag
         end
       end
+
+      # Then, source_type tags
+      link_tag_params[:source_type_ids].split(',').compact_blank.each do |tag_id|
+        if tag = Tag.find(tag_id)
+          tags << tag
+        else
+          Rails.logger.error("Missing source_type tag with id=#{tag_id}")
+        end
+      end
+
+      # Then save.
       @link.tags = tags
     end
 
@@ -88,6 +101,6 @@ class LinksController < ApplicationController
     end
 
     def link_tag_params
-      params.require(:link).permit(:tag_ids)
+      params.require(:link).permit(:topic_ids, source_type_ids: [])
     end
 end

@@ -1,6 +1,10 @@
 class Tag < ApplicationRecord
   has_and_belongs_to_many :links
 
+  def humanized_name
+    name.humanize
+  end
+
   def to_s
     # called by combobox for some godawful reason
     to_combobox_display

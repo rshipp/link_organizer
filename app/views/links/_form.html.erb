@@ -41,11 +41,21 @@
   </div>
 
   <div>
-    <%= form.combobox :tag_ids,
-          Tag.all,
+    <fieldset>
+      <legend>Source type</legend>
+
+      <%= form.collection_check_boxes :source_type_ids,
+            Tag.where(category: 'source_type').order(:name),
+            :id, :humanized_name %>
+    </fieldset>
+  </div>
+
+  <div>
+    <%= form.combobox :topic_ids,
+          Tag.where(category: 'topic').order(:name),
           label: 'Tags',
           multiselect_chip_src: possibly_new_tag_chips_path,
-          name_when_new: 'link[tag_ids]',
+          name_when_new: 'link[topic_ids]',
           mobile_at: "0px" %>
   </div>
 

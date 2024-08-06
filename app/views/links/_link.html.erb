@@ -35,13 +35,22 @@
   </p>
 
   <p>
-    <strong>Tags:</strong>
-    <ul>
-      <% link.tags.each do |tag| %>
-        <li><%= link_to tag.name, tag %></li>
-      <% end %>
-    </ul>
+    <strong>Source types:</strong>
   </p>
+  <ul>
+    <% link.source_types.each do |tag| %>
+      <li><%= link_to tag.name.humanize, tag %></li>
+    <% end %>
+  </ul>
+
+  <p>
+    <strong>Tags:</strong>
+  </p>
+  <ul>
+    <% link.topics.each do |tag| %>
+      <li><%= link_to tag.name, tag %></li>
+    <% end %>
+  </ul>
 
   <p>
     <strong>Text:</strong>
