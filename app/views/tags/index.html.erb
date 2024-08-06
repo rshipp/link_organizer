@@ -2,8 +2,20 @@
 
 <h1>Tags</h1>
 
-<div id="tags">
-  <% @tags.each do |tag| %>
+<h2>Source types</h2>
+
+<div id="source_types">
+  <% @tags.where(category: 'source_type').each do |tag| %>
+    <p>
+      <%= link_to tag.name, tag %>
+    </p>
+  <% end %>
+</div>
+
+<h2>Topics</h2>
+
+<div id="topics">
+  <% @tags.where(category: 'topic').each do |tag| %>
     <p>
       <%= link_to tag.name, tag %>
     </p>
