@@ -15,7 +15,7 @@
       🎥
     <% end %>
   <% end %>
-  <%= link_to link.title, link %>
+  <%= link_to link.title, link, target: "_top" %>
 </p>
 <% if link.notes.present? %>
   <p><%= link.notes %></p>
