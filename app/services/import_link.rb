@@ -38,6 +38,7 @@ class ImportLink
       title: '',
       text: '',
       comment: '',
+      processed: false,
     }
   end
 

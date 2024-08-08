@@ -2,7 +2,7 @@
   <p><%= flash[:notice] %></p>
 <% end %>
 
-<div class="not-prose max-w-lg">
+<div class="not-prose max-w-[64rem]">
   <%= form_with model: @link, class: "flex flex-col space-y-4" do |form| %>
     <% if link.errors.any? %>
       <div style="color: red">
@@ -22,17 +22,19 @@
     </div>
 
     <div class="mt-6">
-      <%= form.label :url %>
+      <%= form.label :url, "URL" %>
       <%= form.text_field :url %>
     </div>
 
     <div>
-      <%= form.label :source_url %>
-      <%= form.text_field :source_url %>
+      <%= form.label :source_url, "Source URL" %>
+      <%= form.text_field :source_url, aria: { describedby: "source-url-desc" }%>
+      <p id="source-url-desc" class="text-sm text-italic">Social media post, or other source where this link was found. Optional.</p>
+
     </div>
 
     <div>
-      <%= form.label :comment %>
+      <%= form.label :comment, "Comment (from source)" %>
       <%= form.text_area :comment, rows: 5 %>
     </div>
 
@@ -66,20 +68,33 @@
 
     <div>
       <%= form.label :notes %>
-      <%= form.text_area :notes %>
+      <%= form.text_area :notes, rows: 10, aria: { describedby: "notes-desc" } %>
+      <p id="notes-desc" class="text-sm text-italic">Summarize the article, and add any important details.</p>
     </div>
 
     <div data-controller="archive" data-archive-url-value="<%= @link.url %>">
-      <%= form.label :archive_url %>
+      <%= form.label :archive_url, "Archive URL" %>
       <%= form.text_field :archive_url,
-            data: {
-              'archive-target': 'input'
-            } %>
+            aria: { describedby: "archive-url-desc" },
+            data: { 'archive-target': 'input' } %>
+      <p id="archive-url-desc" class="text-sm">
+        Archived copy of this link on <%= link_to 'archive.is', 'https://archive.is', target: "_blank" %>
+        or <%= link_to 'web.archive.org', 'https://web.archive.org/', target: "_blank" %>.
+      </p>
     </div>
 
     <div>
       <%= form.label :text %>
-      <%= form.text_area :text, rows: 10 %>
+      <%= form.text_area :text, rows: 10, aria: { describedby: "text-desc" } %>
+      <p id="text-desc" class="text-sm text-italic">The full text of the article, originally pulled automatically from the webpage. May be messy.</p>
+    </div>
+
+    <div>
+      <fieldset>
+        <legend>Have you reviewed the link content, edited the tags, summarized in the Notes field, and made any other necessary changes?</legend>
+        <%= form.check_box :processed %>
+        <%= form.label :processed, "Yes, mark this link as Processed!" %>
+      </fieldset>
     </div>
 
     <div>

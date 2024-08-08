@@ -6,7 +6,7 @@
 
 <div>
   <%= link_to "Edit this link", edit_link_path(@link) %> |
-  <%= link_to "Back to links", links_path %>
+  <%= link_to "View all links", links_path %>
 
   <%= button_to "Destroy this link", @link, method: :delete, class: 'btn-danger', form: { data: { turbo_confirm: 'Are you sure?' } } %>
 </div>

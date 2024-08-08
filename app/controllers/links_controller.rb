@@ -6,6 +6,11 @@ class LinksController < ApplicationController
     @links = Link.all
   end
 
+  # GET /links/unprocessed
+  def unprocessed
+    @links = Link.where(processed: false)
+  end
+
   # GET /links/1 or /links/1.json
   def show
   end

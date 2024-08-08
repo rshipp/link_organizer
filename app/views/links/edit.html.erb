@@ -4,7 +4,7 @@
 
 <div>
   <%= form_with url: import_link_path(@link) do |form| %>
-    <%= form.submit 'Run automatic import', class: 'btn-danger', data: { turbo_confirm: 'Are you sure? Existing information will be overwritten!' } %>
+    <%= form.submit 'Run automatic import', class: 'btn-danger', data: { turbo_confirm: 'Are you sure? Existing information will be overwritten! This is destructive!' } %>
   <% end %>
 </div>
 

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get :import, to: 'links#import_new', on: :collection
     post :import, to: 'links#import_create', on: :collection
     post :import, to: 'links#run_import', on: :member
+    get :unprocessed, to: 'links#unprocessed', on: :collection
   end
 
   # combobox
