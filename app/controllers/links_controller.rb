@@ -56,8 +56,9 @@ class LinksController < ApplicationController
 
   # POST /links/1
   def run_import
-    Rails.logger.debug("Enqueuing job with url=#{@link.url}")
-    ImportLinkJob.perform_later(@link.url)
+    Rails.logger.debug("Enqueuing job with url=#{@link.url}, overwrite=true")
+    # Force overwrite
+    ImportLinkJob.perform_later(@link.url, true)
 
     respond_to do |format|
       format.html { redirect_to link_url(@link), notice: "Link import started. It may take a few minutes to update." }

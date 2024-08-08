@@ -30,8 +30,9 @@ class ImportLink
     'x-twitter-client-language': 'en',
   }
 
-  def initialize(url)
+  def initialize(url, overwrite=false)
     @url = url
+    @overwrite = overwrite
 
     @data = {
       title: '',
@@ -51,8 +52,13 @@ class ImportLink
     guess_tags
 
     Rails.logger.info("Find or create link with url=#{@data[:url]}")
-    link = Link.find_or_create_by(url: @data[:url])
-    link.update(@data)
+    if @overwrite
+      link = Link.find_or_create_by(url: @data[:url])
+      link.update(@data)
+    else
+      # Just let it raise an exception if it already exists
+      link.create(@data)
+    end
   end
 
   def import_twitter(url)
