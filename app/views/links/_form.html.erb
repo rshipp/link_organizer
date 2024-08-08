@@ -57,13 +57,13 @@
       </fieldset>
     </div>
 
-    <div>
+    <div class="tag-combobox">
       <%= form.combobox :topic_ids,
             Tag.where(category: 'topic').order(:name),
             label: 'Tags',
             multiselect_chip_src: possibly_new_tag_chips_path,
             name_when_new: 'link[topic_ids]',
-            mobile_at: "0px" %>
+            mobile_at: "640px" %>
     </div>
 
     <div>
