@@ -57,7 +57,7 @@ class ImportLink
       link.update(@data)
     else
       # Just let it raise an exception if it already exists
-      link.create(@data)
+      Link.create(@data)
     end
   end
 
