@@ -28,7 +28,7 @@
     <div id="selected_tags">
       <h2>Top tags</h2>
       <p>
-        <% Tag.all.map {|t| [t.links.count, t]}.sort.last(10).reverse.each do |count, tag| %>
+        <% Tag.where(category: 'topic').map {|t| [t.links.count, t]}.sort.last(10).reverse.each do |count, tag| %>
           <%= link_to tag.name, tag, data: { turbo_scroll: 'reset' } %> (<%= count %>)
         <% end %>
       </p>
