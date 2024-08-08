@@ -1,14 +1,12 @@
 <p style="color: green"><%= notice %></p>
 
+<p><%= link_to 'Home', root_path %></p>
+
 <h1>Links</h1>
 
 <div id="links">
   <% @links.each do |link| %>
-    <p>
-      <%= link.title %> -
-      (<%= link_to "View", link %>
-      | <%= link_to "Edit", edit_link_path(link) %>)
-    </p>
+    <%= render "preview", link: link %>
   <% end %>
 </div>
 

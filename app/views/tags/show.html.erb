@@ -6,11 +6,7 @@
 
 <h2>Links</h2>
 <% @tag.links.each do |link| %>
-  <p>
-    <%= link.title %> - 
-    (<%= link_to "View", link %>
-    | <%= link_to "Edit", edit_link_path(link) %>)
-  </p>
+  <%= render "links/preview", link: link %>
 <% end %>
 
 <div>
