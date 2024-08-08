@@ -15,7 +15,7 @@
       🎥
     <% end %>
   <% end %>
-  <%= link_to link.title, link, data: { turbo_scroll: 'reset' } %>
+  <%= link_to link.title, link %>
 </p>
 <% if link.notes.present? %>
   <p><%= link.notes %></p>

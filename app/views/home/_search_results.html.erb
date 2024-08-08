@@ -11,7 +11,7 @@
       <% if tags.present? %>
         <h2>Tags</h2>
         <% tags.each do |tag| %>
-          <p><%= link_to tag.name, tag, data: { turbo_scroll: 'reset' } %> (<%= tag.links.count %>)</p>
+          <p><%= link_to tag.name, tag %> (<%= tag.links.count %>)</p>
         <% end %>
       <% end %>
     </div>
@@ -29,7 +29,7 @@
       <h2>Top tags</h2>
       <p>
         <% Tag.where(category: 'topic').map {|t| [t.links.count, t]}.sort.last(10).reverse.each do |count, tag| %>
-          <%= link_to tag.name, tag, data: { turbo_scroll: 'reset' } %> (<%= count %>)
+          <%= link_to tag.name, tag %> (<%= count %>)
         <% end %>
       </p>
     </div>
