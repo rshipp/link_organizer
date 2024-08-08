@@ -4,10 +4,7 @@
       <% if links.present? %>
         <h2>Links</h2>
         <% links.each do |link| %>
-          <p><%= link_to link.title, link, data: { turbo_scroll: 'reset' } %></p>
-          <% if link.notes.present? %>
-            <p><%= link.notes %></p>
-          <% end %>
+          <%= render "links/link_preview", link: link %>
         <% end %>
       <% end %>
 
@@ -24,7 +21,7 @@
     <div id="selected_links">
       <h2>Latest links</h2>
       <% Link.last(3).each do |link| %>
-        <p><%= link_to link.title, link, data: { turbo_scroll: 'reset' } %></p>
+        <%= render "links/link_preview", link: link %>
       <% end %>
     </div>
 
