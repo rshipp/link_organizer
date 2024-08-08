@@ -5,9 +5,9 @@
 <h2>Source types</h2>
 
 <div id="source_types">
-  <% @tags.where(category: 'source_type').each do |tag| %>
+  <% @tags.where(category: 'source_type').order(:name).each do |tag| %>
     <p>
-      <%= link_to tag.name, tag %>
+      <%= link_to tag.name, tag %> (<%= tag.links.count %>)
     </p>
   <% end %>
 </div>
@@ -15,9 +15,9 @@
 <h2>Topics</h2>
 
 <div id="topics">
-  <% @tags.where(category: 'topic').each do |tag| %>
+  <% @tags.where(category: 'topic').order(:name).each do |tag| %>
     <p>
-      <%= link_to tag.name, tag %>
+      <%= link_to tag.name, tag %> (<%= tag.links.count %>)
     </p>
   <% end %>
 </div>
