@@ -1,39 +1,30 @@
 <div id="<%= dom_id link %>">
-  <p>
-    <strong>Title:</strong>
-    <%= link.title %>
-  </p>
+  <h1><%= link.title %></h1>
+  <%= link_to link.url, link.url %>
+  <% if link.archive_url %>
+    (<%= link_to 'archive', link.archive_url %>)
+  <% end %>
 
-  <p>
-    <strong>Url:</strong>
-    <%= link.url %>
-  </p>
+  <% if link.source_url %>
+    <blockquote>
+      <p>
+        <%= link.comment %>
+      </p>
+    </blockquote>
+    <figcaption>
+      <p>
+        Source: <%= link_to link.source_url, link.source_url %>
+      </p>
+    </figcaption>
+  <% end %>
 
+  <h2>Notes</h2>
   <p>
-    <strong>Source url:</strong>
-    <%= link.source_url %>
-  </p>
-
-  <p>
-    <strong>Comment:</strong>
-    <%= link.comment %>
-  </p>
-
-  <p>
-    <strong>Published at:</strong>
-    <%= link.published_at %>
-  </p>
-
-  <p>
-    <strong>Notes:</strong>
     <%= link.notes %>
   </p>
 
-  <p>
-    <strong>Archive url:</strong>
-    <%= link.archive_url %>
-  </p>
 
+  <h2>Tags</h2>
   <p>
     <strong>Source types:</strong>
   </p>
@@ -44,7 +35,7 @@
   </ul>
 
   <p>
-    <strong>Tags:</strong>
+    <strong>Topics:</strong>
   </p>
   <ul>
     <% link.topics.each do |tag| %>
@@ -52,9 +43,13 @@
     <% end %>
   </ul>
 
-  <p>
-    <strong>Text:</strong>
-    <%= link.text %>
-  </p>
-
+  <h2>Text</h2>
+  <details>
+    <summary>Expand full text</summary>
+    <pre class="whitespace-pre-wrap bg-white font-sans text-black text-base">
+      <strong>Text:</strong>
+      <%= link.text %>
+    </pre>
+  </details>
+  <br>
 </div>
