@@ -65,6 +65,7 @@ class ImportLink
 
     # We do initiate requests Session, and we get the `guest-token` from the HomePage
     client = HTTPClient.new(nil, USER_AGENT)
+    client.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_NONE
     resp = client.get(TWITTER_INIT_URL)
     match = resp.dump.match /gt=(\d+)/
     guest_token = match[1]
@@ -108,7 +109,9 @@ class ImportLink
   end
 
   def import_standard(url)
-    doc = Nokogiri::HTML(HTTPClient.get_content(url))
+    client = HTTPClient.new(nil, USER_AGENT)
+    client.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    doc = Nokogiri::HTML(client.get_content(url))
     @data[:title] = doc.css('head title').first.content
 
     doc.css('h1, h2, h3, h4, p, blockquote').each do |e|

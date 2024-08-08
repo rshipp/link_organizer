@@ -20,7 +20,7 @@
   <% else %>
     <div id="selected_links">
       <h2>Latest links</h2>
-      <% Link.last(3).each do |link| %>
+      <% Link.last(3).reverse.each do |link| %>
         <%= render "links/preview", link: link %>
       <% end %>
     </div>
