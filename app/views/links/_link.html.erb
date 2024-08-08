@@ -1,7 +1,7 @@
 <div id="<%= dom_id link %>">
   <h1><%= link.title %></h1>
   <%= link_to link.url, link.url %>
-  <% if link.archive_url %>
+  <% if link.archive_url.present? %>
     (<%= link_to 'archive', link.archive_url %>)
   <% end %>
 
@@ -47,7 +47,6 @@
   <details>
     <summary>Expand full text</summary>
     <pre class="whitespace-pre-wrap bg-white font-sans text-black text-base">
-      <strong>Text:</strong>
       <%= link.text %>
     </pre>
   </details>

@@ -1,12 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
-<h1><%= @tag.name %> (<%= @tag.category %>)</h1>
-<div>
-  <%= link_to "Edit this tag", edit_tag_path(@tag) %> |
-  <%= link_to "Back to tags", tags_path %>
+<p><%= link_to 'Home', root_path %></p>
 
-  <%= button_to "Destroy this tag", @tag, method: :delete %>
-</div>
+<h1><%= @tag.category.humanize %>: <%= @tag.name.humanize %></h1>
 
 <h2>Links</h2>
 <% @tag.links.each do |link| %>
@@ -16,3 +12,13 @@
     | <%= link_to "Edit", edit_link_path(link) %>)
   </p>
 <% end %>
+
+<div>
+  <br/>
+  <%= link_to "Edit this tag", edit_tag_path(@tag) %> |
+  <%= link_to "View all tags", tags_path %>
+</div>
+<div>
+  <br/>
+  <%= button_to "Destroy this tag", @tag, method: :delete, class: "btn-danger", form: { data: { turbo_confirm: 'Are you sure?' } } %>
+</div>

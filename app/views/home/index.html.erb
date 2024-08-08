@@ -1,0 +1,17 @@
+<div class="container m-auto ">
+  <h1 class="text-center">Search Links</h1>
+
+  <div id="search" class="m-0 w-full md:m-auto md:w-fit">
+    <%= form_with url: root_path, method: 'GET',
+          data: { controller: "search", turbo_frame: "search_results", turbo_action: "advance" } do |form| %>
+      <%= form.text_field :query, 
+            value: @query,
+            type: 'search',
+            class: "sm:w-full md:w-[32rem]",
+            data: { action: "input->search#search" },
+            aria: { label: 'Search query' } %>
+    <% end %>
+  </div>
+
+  <%= render "search_results", links: @links, tags: @tags, query: @query %>
+</div>
