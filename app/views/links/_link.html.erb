@@ -45,7 +45,7 @@
     <strong>Topics:</strong>
   </p>
   <ul>
-    <% link.topics.each do |tag| %>
+    <% link.topics.order(:name).each do |tag| %>
       <li><%= link_to tag.name, tag %></li>
     <% end %>
   </ul>

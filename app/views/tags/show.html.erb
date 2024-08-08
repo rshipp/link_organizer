@@ -11,6 +11,14 @@
 
 <div>
   <br/>
+  <p>
+    Don't see what you're looking for?
+    Try <%= link_to "processing some links", unprocessed_links_path %> yourself, to make sure they have the correct tags!
+  </p>
+</div>
+
+<div>
+  <br/>
   <%= link_to "Edit this tag", edit_tag_path(@tag) %> |
   <%= link_to "View all tags", tags_path %>
 </div>

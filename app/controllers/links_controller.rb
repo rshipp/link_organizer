@@ -34,8 +34,8 @@ class LinksController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to links_url, notice: "Link import started. It may take a few minutes for new links to appear." }
-      format.json { render :show, status: :created, location: links_url }
+      format.html { redirect_to unprocessed_links_url, notice: "Link import started. It may take a few minutes for new links to appear." }
+      format.json { render :show, status: :created, location: unprocessed_links_url }
     end
   end
 

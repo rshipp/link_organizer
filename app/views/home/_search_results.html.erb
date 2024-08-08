@@ -17,6 +17,10 @@
     </div>
   <% elsif query.present? %>
     <p>No results found</p>
+    <p>
+      Don't see what you're looking for?
+      Try <%= link_to "processing some links", unprocessed_links_path %> yourself, to make sure they have the correct tags!
+    </p>
   <% else %>
     <div id="selected_links">
       <h2>Latest links</h2>
