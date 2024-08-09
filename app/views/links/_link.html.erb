@@ -12,7 +12,7 @@
     (<%= link_to 'archive', link.archive_url %>)
   <% end %>
 
-  <% if link.source_url %>
+  <% if link.source_url.present? %>
     <blockquote>
       <p>
         <%= link.comment %>
