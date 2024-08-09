@@ -151,13 +151,6 @@ class ImportLink
       if @data[:title].match? /\b#{tag_re}\b/i
         tag_ids << tag.id
       end
-      begin
-        if @data[:text].match? /\b#{tag_re}\b/i
-          tag_ids << tag.id
-        end
-      rescue ArgumentError
-        Rails.logger.info("Couldn't guess tags from non-utf-8 text")
-      end
       if @data[:comment].match? /\b#{tag_re}\b/i
         tag_ids << tag.id
       end
