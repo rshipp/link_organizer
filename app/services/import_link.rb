@@ -101,12 +101,20 @@ class ImportLink
     full_text = legacy.dig("full_text") || ""
     timestamp = legacy.dig("created_at") || ""
 
-    @data[:source_url] = url
-    @data[:published_at] = timestamp
-    @data[:comment] = full_text
-    @data[:url] = urls ? urls[0] : ''
 
-    import_standard(@data[:url])
+    @data[:published_at] = timestamp
+
+    embed_url = urls ? urls[0] : ''
+    if embed_url
+      @data[:url] = embed_url
+      @data[:source_url] = url
+      @data[:comment] = full_text
+      import_standard(@data[:url])
+    else
+      @data[:url] = url
+      @data[:title] = "Tweet: #{full_text[0..50]}..."
+      @data[:text] = full_text
+    end
   end
 
   def import_standard(url)
