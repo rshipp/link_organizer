@@ -2,6 +2,12 @@
 
 <h1>Editing link</h1>
 
+<% if @link.archive_url.present? %>
+  <p>View: <%= link_to "Open this link in a new tab", @link.archive_url, target: "_blank" %></p>
+<% elsif @link.url.present? %>
+  <p>View: <%= link_to "Open this link in a new tab", @link.url, target: "_blank" %></p>
+<% end %>
+
 <%= render "form", link: @link %>
 
 <div>
