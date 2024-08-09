@@ -6,9 +6,10 @@ class HomeController < ApplicationController
       @tags = Tag.where("name like ?", "%#{ActiveRecord::Base.sanitize_sql_like(@query)}%").order(:name)
 
       @links = Link.where("title like ?", "%#{ActiveRecord::Base.sanitize_sql_like(@query)}%")
-        .or(Link.where("text like ?", "%#{ActiveRecord::Base.sanitize_sql_like(@query)}%"))
         .or(Link.where("comment like ?", "%#{ActiveRecord::Base.sanitize_sql_like(@query)}%"))
         .or(Link.where("notes like ?", "%#{ActiveRecord::Base.sanitize_sql_like(@query)}%"))
+        # Disabled for now, until the text is cleaned up.
+        #.or(Link.where("text like ?", "%#{ActiveRecord::Base.sanitize_sql_like(@query)}%"))
         .or(Link.where(id: @tags.map {|t| t.links}.flatten.map { |l| l.id }.uniq))
     end
 
