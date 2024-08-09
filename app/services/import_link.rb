@@ -128,8 +128,16 @@ class ImportLink
     Rails.logger.info("Importing from url=#{url}")
     client = HTTPClient.new(nil, USER_AGENT)
     client.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    doc = Nokogiri::HTML(client.get_content(url))
-    @data[:title] = doc.css('head title').first.content
+    begin
+      doc = Nokogiri::HTML(client.get_content(url))
+    rescue HTTPClient::BadResponseError, HTTPClient::ReceiveTimeoutError => e
+      Rails.logger.error("Error!")
+      Rails.logger.error(e)
+      # Return early, so the URL still gets stored.
+      return
+    end
+
+    @data[:title] = doc.css('head title')&.first&.content || ''
 
     doc.css('h1, h2, h3, h4, p, blockquote').each do |e|
       @data[:text] += e.text + "\n"
@@ -143,12 +151,17 @@ class ImportLink
       if @data[:title].match? /\b#{tag_re}\b/i
         tag_ids << tag.id
       end
-      if @data[:text].match? /\b#{tag_re}\b/i
-        tag_ids << tag.id
+      begin
+        if @data[:text].match? /\b#{tag_re}\b/i
+          tag_ids << tag.id
+        end
+      rescue ArgumentError
+        Rails.logger.info("Couldn't guess tags from non-utf-8 text")
       end
       if @data[:comment].match? /\b#{tag_re}\b/i
         tag_ids << tag.id
       end
+
       @data[:tag_ids] = tag_ids.uniq
     end
   end

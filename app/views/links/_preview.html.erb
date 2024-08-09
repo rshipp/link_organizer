@@ -15,7 +15,7 @@
       🎥
     <% end %>
   <% end %>
-  <%= link_to link.title, link, target: "_top" %>
+  <%= link_to link.title.present? ? link.title : '[Missing title]', link, target: "_top" %>
 </p>
 <% if link.notes.present? %>
   <p><%= link.notes %></p>
