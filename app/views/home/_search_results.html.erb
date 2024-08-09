@@ -27,14 +27,16 @@
       <% Link.last(3).reverse.each do |link| %>
         <%= render "links/preview", link: link %>
       <% end %>
+      <%= link_to "more >>", links_url %>
     </div>
 
     <div id="selected_tags">
       <h2>Top tags</h2>
       <p>
         <% Tag.where(category: 'topic').map {|t| [t.links.count, t]}.sort.last(10).reverse.each do |count, tag| %>
-          <%= link_to tag.name, tag, target: "_top" %> (<%= count %>)
+          <%= link_to tag.name, tag, target: "_top" %> (<%= count %>),
         <% end %>
+        <%= link_to "more >>", tags_url %>
       </p>
     </div>
 
