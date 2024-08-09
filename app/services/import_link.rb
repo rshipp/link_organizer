@@ -67,6 +67,7 @@ class ImportLink
   end
 
   def import_twitter(url)
+    Rails.logger.info("Importing from tweet=#{url}")
 
     # We do initiate requests Session, and we get the `guest-token` from the HomePage
     client = HTTPClient.new(nil, USER_AGENT)
@@ -110,11 +111,13 @@ class ImportLink
 
     embed_url = urls ? urls[0] : ''
     if embed_url
+      Rails.logger.info("Found embed url in tweet: #{embed_url}")
       @data[:url] = embed_url
       @data[:source_url] = url
       @data[:comment] = full_text
       import_standard(@data[:url])
     else
+      Rails.logger.info("No embed found in tweet")
       @data[:url] = url
       @data[:title] = "Tweet: #{full_text[0..50]}..."
       @data[:text] = full_text
@@ -122,6 +125,7 @@ class ImportLink
   end
 
   def import_standard(url)
+    Rails.logger.info("Importing from url=#{url}")
     client = HTTPClient.new(nil, USER_AGENT)
     client.ssl_config.verify_mode = OpenSSL::SSL::VERIFY_NONE
     doc = Nokogiri::HTML(client.get_content(url))
