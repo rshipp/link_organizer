@@ -58,7 +58,11 @@ class ImportLink
       link.update(@data)
     else
       # Just let it raise an exception if it already exists
-      Link.create(@data)
+      begin
+        Link.create(@data)
+      rescue ActiveRecord::RecordNotUnique
+        Rails.logger.warn("Link already exists: #{@data[:url]}")
+      end
     end
   end
 
