@@ -35,9 +35,12 @@
     @apply rounded w-full
   }
 
-  [type='checkbox'],
-  [type='radio'] {
+  [type='checkbox'] {
     @apply rounded mx-2
+  }
+
+  [type='radio'] {
+    @apply mx-2
   }
 
   [type='submit'] {

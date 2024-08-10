@@ -90,6 +90,24 @@
     </div>
 
     <div>
+      <fieldset class="">
+        <legend>How useful does this seem as a reference or resource?</legend>
+        <div>
+          <%= form.radio_button :rating, 1 %>
+          <%= form.label :rating_1, "Not very useful" %>
+        </div>
+        <div>
+          <%= form.radio_button :rating, 5 %>
+          <%= form.label :rating_5, "Possibly useful" %>
+        </div>
+        <div>
+          <%= form.radio_button :rating, 10 %>
+          <%= form.label :rating_10, "Very useful" %>
+        </div>
+      </fieldset>
+    </div>
+
+    <div>
       <fieldset>
         <legend>Have you reviewed the link content, edited the tags, summarized in the Notes field, and made any other necessary changes?</legend>
         <%= form.check_box :processed %>
