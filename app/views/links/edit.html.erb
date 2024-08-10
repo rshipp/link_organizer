@@ -3,7 +3,7 @@
 <h1>Editing link</h1>
 
 <% if @link.archive_url.present? %>
-  <p>View: <%= link_to "Open this link in a new tab", @link.archive_url, target: "_blank" %></p>
+  <p>View: <%= link_to "Open archived copy in a new tab", @link.archive_url, target: "_blank" %> (or <%= link_to "open the original", @link.url, target: "_blank" %>)</p>
 <% elsif @link.url.present? %>
   <p>View: <%= link_to "Open this link in a new tab", @link.url, target: "_blank" %></p>
 <% end %>
