@@ -23,5 +23,8 @@ module LinkOrganizer
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Configurable site topic.
+    config.site_topic = ENV['SITE_TOPIC'] || ''
   end
 end
