@@ -1,9 +1,11 @@
 <div id="<%= dom_id link %>">
-  <p class="text-red-700">
-    Note: This link is unprocessed.
-    You can help by <%= link_to "processing new links", unprocessed_links_path %>,
-    or directly <%= link_to "editing this one", edit_link_path(link) %>!
-  </p>
+  <% unless link.processed %>
+    <p class="text-red-700">
+      Note: This link is unprocessed.
+      You can help by <%= link_to "processing new links", unprocessed_links_path %>,
+      or directly <%= link_to "editing this one", edit_link_path(link) %>!
+    </p>
+  <% end %>
 
   <h1><%= link.title %></h1>
 
