@@ -2,7 +2,7 @@
 
 <p><%= link_to 'Home', root_path %></p>
 
-<h1><%= @tag.category.humanize %>: <%= @tag.name.humanize %></h1>
+<h1><%= @tag.category&.humanize %>: <%= @tag.name&.humanize %></h1>
 
 <h2>Links</h2>
 <% @tag.links.each do |link| %>
