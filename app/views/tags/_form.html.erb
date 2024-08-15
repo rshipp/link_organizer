@@ -12,14 +12,20 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :category, style: "display: block" %>
-    <%= form.text_field :category %>
+    <%= form.label :category %>
+    <%= form.select :category, ['topic', 'source_type'] %>
   </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
 
   <div>
     <%= form.submit %>

@@ -4,6 +4,8 @@
 
 <h1><%= @tag.category&.humanize %>: <%= @tag.name&.humanize %></h1>
 
+<div><%= markdown(@tag.description || '') %></div>
+
 <h2>Links</h2>
 <% @tag.links.each do |link| %>
   <%= render "links/preview", link: link %>
