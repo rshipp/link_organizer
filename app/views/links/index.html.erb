@@ -5,7 +5,7 @@
 <h1>Links</h1>
 
 <div id="links">
-  <% @links.each do |link| %>
+  <% @links.order(:created_at).reverse.each do |link| %>
     <%= render "preview", link: link %>
   <% end %>
 </div>
