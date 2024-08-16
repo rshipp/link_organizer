@@ -9,6 +9,7 @@
 <div id="source_types">
   <% @tags.where(category: 'source_type').order(:name).each do |tag| %>
     <p>
+      <%= source_type_icon(tag.name) %>
       <%= link_to tag.name, tag %> (<%= tag.links.count %>)
     </p>
   <% end %>

@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def source_type_icon(source_type_name)
-    case source_type_name
+    emoji = case source_type_name
     when "academic_article"
       '🎓'
     when "book"
@@ -24,5 +24,7 @@ module ApplicationHelper
     else
       ''
     end
+
+    raw("<span aria-hidden='true'>#{emoji}</span>")
   end
 end

@@ -2,7 +2,12 @@
   <% link.source_types.each do |source_type| %>
     <%= source_type_icon(source_type.name) %>
   <% end %>
-  <%= link_to link.title.present? ? link.title : '[Missing title]', link, target: "_top" %>
+  <%= link_to link, target: "_top" do %>
+    <% link.source_types.each do |source_type| %>
+      <span class="sr-only"><%= source_type.name&.humanize %></span>
+    <% end %>
+    <%= link.title.present? ? link.title : '[Missing title]' %>
+  <% end %>
 </p>
 <% if link.notes.present? %>
   <p class="-mt-2"><%= link.notes %></p>
