@@ -94,15 +94,11 @@
         <legend>How useful does this seem as a reference or resource?</legend>
         <div>
           <%= form.radio_button :rating, 1 %>
-          <%= form.label :rating_1, "Not very useful" %>
-        </div>
-        <div>
-          <%= form.radio_button :rating, 5 %>
-          <%= form.label :rating_5, "Possibly useful" %>
+          <%= form.label :rating_1, "Seems not very useful / seems like a bad source" %>
         </div>
         <div>
           <%= form.radio_button :rating, 10 %>
-          <%= form.label :rating_10, "Very useful" %>
+          <%= form.label :rating_9, "Might be very useful / seems like a great source" %>
         </div>
       </fieldset>
     </div>
