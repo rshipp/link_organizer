@@ -1,19 +1,6 @@
 <p>
   <% link.source_types.each do |source_type| %>
-    <% case source_type.name -%>
-    <% when "academic_article" %>
-      🎓
-    <% when "book" %>
-      📕
-    <% when "news_article" %>
-      📰
-    <% when "audio" %>
-      🎧
-    <% when "social_post" %>
-      🗨
-    <% when "video" %>
-      🎥
-    <% end %>
+    <%= source_type_icon(source_type.name) %>
   <% end %>
   <%= link_to link.title.present? ? link.title : '[Missing title]', link, target: "_top" %>
 </p>

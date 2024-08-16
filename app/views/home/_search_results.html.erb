@@ -30,13 +30,24 @@
       <%= link_to "more >>", links_url %>
     </div>
 
-    <div id="selected_tags">
-      <h2>Top tags</h2>
+    <div id="selected_topics">
+      <h2>Top topics</h2>
       <p>
-        <% Tag.where(category: 'topic').map {|t| [t.links.count, t]}.sort.last(10).reverse.each do |count, tag| %>
+        <% Tag.where(category: "topic").map {|t| [t.links.count, t]}.sort.last(10).reverse.each do |count, tag| %>
           <%= link_to tag.name, tag, target: "_top" %> (<%= count %>),
         <% end %>
         <%= link_to "more >>", tags_url %>
+      </p>
+    </div>
+
+    <div id="source_types">
+      <h2>Source types</h2>
+      <p>
+        <% Tag.where(category: "source_type").map {|t| [t.name, t]}.sort.each do |_, tag| %>
+          <%= source_type_icon(tag.name) %>
+          <%= link_to tag.name.humanize, tag, target: "_top" %> (<%= tag.links.count %>),
+        <% end %>
+        <%= link_to "all >>", tags_url %>
       </p>
     </div>
 
