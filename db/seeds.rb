@@ -16,6 +16,7 @@
   ['video','source_type'],
   ['blog_post','source_type'],
   ['book','source_type'],
+  ['graphic','source_type'],
 ].each do |name, category|
   Tag.find_or_create_by!(name: name, category: category)
 end
