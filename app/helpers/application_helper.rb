@@ -21,6 +21,8 @@ module ApplicationHelper
       '🗨'
     when "video"
       '🎥'
+    when "graphic"
+      '🖼'
     else
       ''
     end
