@@ -17,12 +17,18 @@
     Please review the link content, edit its tags, and write a quick summary or any important details in the "Notes" field.
     When you've fully filled in the tags and notes, and edited any other fields that need changing, check the "Processed" box, and save the link details with the "Update Link" button.
   </p>
+  <p>Links with an asterisk (*) have no topic tags.</p>
   <p>There are <%= @links.count %> unprocessed links remaining, out of <%= Link.count %> total.</p>
 </div>
 
 <h2>Unprocessed Links</h2>
 <div id="links">
   <% @links.each do |link| %>
-    <p><%= link_to link.title, edit_link_path(link) %></p>
+    <p>
+      <% if link.topics.empty? %>
+        *
+      <% end %>
+      <%= link_to link.title, edit_link_path(link) %>
+    </p>
   <% end %>
 </div>

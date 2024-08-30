@@ -9,6 +9,10 @@ class LinksController < ApplicationController
   # GET /links/unprocessed
   def unprocessed
     @links = Link.where(processed: false)
+
+    if params[:untagged]
+      @links = @links.filter { |l| l.topics.empty? }
+    end
   end
 
   # GET /links/1 or /links/1.json
