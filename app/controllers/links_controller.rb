@@ -10,8 +10,16 @@ class LinksController < ApplicationController
   def unprocessed
     @links = Link.where(processed: false)
 
-    if params[:untagged]
+    if params[:no_topics]
       @links = @links.filter { |l| l.topics.empty? }
+    end
+
+    if params[:no_source_types]
+      @links = @links.filter { |l| l.source_types.empty? }
+    end
+
+    if params[:no_archive]
+      @links = @links.filter { |l| l.archive_url&.empty? }
     end
   end
 

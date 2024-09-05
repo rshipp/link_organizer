@@ -17,17 +17,31 @@
     Please review the link content, edit its tags, and write a quick summary or any important details in the "Notes" field.
     When you've fully filled in the tags and notes, and edited any other fields that need changing, check the "Processed" box, and save the link details with the "Update Link" button.
   </p>
-  <p>Links with an asterisk (*) have no topic tags.</p>
-  <p>There are <%= @links.count %> unprocessed links remaining, out of <%= Link.count %> total.</p>
+  <p>
+    By default, this page shows "Unprocessed" links. You may also want to limit to links with
+    <%= link_to 'no topics', unprocessed_links_path(no_topics: true) %>,
+    <%= link_to 'no source types', unprocessed_links_path(no_source_types: true) %>,
+    or
+    <%= link_to 'no archived copy', unprocessed_links_path(no_archive: true) %>.
+  </p>
+  <p>
+    There are <%= @links.count %> unprocessed links remaining
+    <% if params[:no_topics] || params[:no_source_types] || params[:no_archive] %>
+      with
+      <%= [
+        params[:no_topics] && 'no topics',
+        params[:no_source_types] && 'no source types',
+        params[:no_archive] && 'no archived copy',
+      ].compact_blank.join(' and ') %>
+    <% end %>
+    (out of <%= Link.count %> total).
+  </p>
 </div>
 
 <h2>Unprocessed Links</h2>
 <div id="links">
   <% @links.each do |link| %>
     <p>
-      <% if link.topics.empty? %>
-        *
-      <% end %>
       <%= link_to link.title, edit_link_path(link) %>
     </p>
   <% end %>
