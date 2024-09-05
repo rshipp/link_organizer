@@ -1,2 +1,2 @@
-web: bin/rails server
+web: bin/rails server $RAILS_SERVER_OPTS
 css: bin/rails tailwindcss:watch
