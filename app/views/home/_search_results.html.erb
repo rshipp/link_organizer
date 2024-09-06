@@ -21,40 +21,5 @@
       Don't see what you're looking for?
       Try <%= link_to "processing some links", unprocessed_links_path %> yourself, to make sure they have the correct tags!
     </p>
-  <% else %>
-    <div id="selected_links">
-      <h2>Latest links</h2>
-      <% Link.last(3).reverse.each do |link| %>
-        <%= render "links/preview", link: link %>
-      <% end %>
-      <%= link_to "more >>", links_url %>
-    </div>
-
-    <div id="selected_topics">
-      <h2>Top topics</h2>
-      <p>
-        <% Tag.where(category: "topic").map {|t| [t.links.count, t]}.sort.last(10).reverse.each do |count, tag| %>
-          <%= link_to tag.name, tag, target: "_top" %> (<%= count %>),
-        <% end %>
-        <%= link_to "more >>", tags_url %>
-      </p>
-    </div>
-
-    <div id="source_types">
-      <h2>Source types</h2>
-      <p>
-        <% Tag.where(category: "source_type").map {|t| [t.links.count, t]}.sort.last(7).reverse.each do |count, tag| %>
-          <%= source_type_icon(tag.name) %>
-          <%= link_to tag.name.humanize, tag, target: "_top" %> (<%= tag.links.count %>),
-        <% end %>
-        <%= link_to "more >>", tags_url %>
-      </p>
-    </div>
-
-    <div id="contribute">
-      <h2>Contribute</h2>
-      <p><%= link_to "Add new links", import_links_path %></p>
-      <p><%= link_to "Tag and summarize unprocessed links", unprocessed_links_path %></p>
-    </div>
   <% end %>
 <% end %>

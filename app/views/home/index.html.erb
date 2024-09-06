@@ -3,15 +3,21 @@
 
   <div id="search" class="m-0 w-full md:m-auto md:w-fit">
     <%= form_with url: root_path, method: 'GET',
-          data: { controller: "search", turbo_frame: "search_results", turbo_action: "advance" } do |form| %>
+          data: { controller: "search", turbo_frame: "dynamic_homepage", turbo_action: "advance" } do |form| %>
       <%= form.text_field :query, 
             value: @query,
             type: 'search',
             class: "sm:w-full md:w-[32rem]",
+            autofocus: true,
             data: { action: "input->search#search" },
             aria: { label: 'Search query' } %>
     <% end %>
   </div>
+  <div class="m-0 w-full md:m-auto md:w-fit">
+    <p class="mt-2 text-center">
+      Or try <%= link_to "advanced search", advanced_search_path %>
+    </p>
+  </div>
 
-  <%= render "search_results", links: @links, tags: @tags, query: @query %>
+  <%= render "dynamic_homepage", links: @links, tags: @tags, query: @query %>
 </div>

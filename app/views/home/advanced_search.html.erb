@@ -1,0 +1,65 @@
+<p><%= link_to 'Home', root_path %></p>
+
+<div class="container m-auto ">
+  <h1 class="text-center">Search <%= Rails.application.config.site_topic %> Links</h1>
+
+  <div id="search" class="m-0 w-full md:m-auto md:w-fit">
+    <%= form_with url: advanced_search_results_path, method: 'GET', class: 'not-prose' do |form| %>
+      <%= form.text_field :query, 
+            value: @query,
+            type: 'search',
+            class: "sm:w-full md:w-[32rem]",
+            autofocus: true,
+            aria: { label: 'Search query' } %>
+
+      <details>
+        <summary>Search tips</summary>
+        <ul class="mt-0">
+          <li class="mt-0">Use quotes to search "an exact phrase".</li>
+          <li>Use <strong>-word</strong> or <strong>NOT word</strong> to exclude a word.</li>
+        </ul>
+      </details>
+
+      <fieldset class="mt-2">
+        <legend class="font-medium">Search in</legend>
+        <%= form.collection_check_boxes :search_in, 
+              ['title', 'notes', 'source_comment', 'full_text'],
+              :to_s, :humanize do |b| %>
+          <div>
+            <% checked = b.text != 'full_text'.humanize %>
+            <%= b.label(class: "inline-flex items-center") { b.check_box(checked: checked) + b.text } %>
+          </div>
+        <% end %>
+      </fieldset>
+
+      <div class="tag-combobox mt-4">
+        <%= form.combobox :and_tags,
+              Tag.all.order(:name),
+              label: 'With ALL of these tags',
+              multiselect_chip_src: possibly_new_tag_chips_path,
+              mobile_at: "640px" %>
+      </div>
+
+      <div class="tag-combobox mt-4">
+        <%= form.combobox :or_tags,
+              Tag.all.order(:name),
+              label: 'With ANY of these tags',
+              multiselect_chip_src: possibly_new_tag_chips_path,
+              mobile_at: "640px" %>
+      </div>
+
+      <div class="tag-combobox mt-4">
+        <%= form.combobox :not_tags,
+              Tag.all.order(:name),
+              label: 'With NONE of these tags',
+              multiselect_chip_src: possibly_new_tag_chips_path,
+              mobile_at: "640px" %>
+      </div>
+
+      <div class="mt-8">
+        <%= form.submit "Search" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

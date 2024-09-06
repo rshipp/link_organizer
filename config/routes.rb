@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     get :unprocessed, to: 'links#unprocessed', on: :collection
   end
 
+  get :advanced_search, to: 'home#advanced_search'
+  get :advanced_search_results, to: 'home#advanced_search_results'
+
   # combobox
   post "possibly_new_tag_chips", to: "tag_chips#create_possibly_new"
 

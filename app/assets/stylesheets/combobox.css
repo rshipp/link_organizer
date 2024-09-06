@@ -1,4 +1,7 @@
 .tag-combobox {
+  fieldset.hw-combobox {
+    width: 100%;
+  }
   .hw-combobox__main__wrapper {
     width: 100%;
     min-width: 20rem;

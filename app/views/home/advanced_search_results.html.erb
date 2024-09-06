@@ -1,0 +1,38 @@
+<p><%= link_to 'Home', root_path %></p>
+
+<div class="container m-auto ">
+  <h1 class="text-center">Advanced Seach Results</h1>
+
+  <div>
+    <p>Search results for <strong><%= params[:query].present? ? params[:query] : 'anything' %></strong></p>
+    <ul>
+      <% if params[:query].present? %>
+        <li>In: <%= params[:search_in].compact_blank.map(&:humanize).map(&:downcase).join(', ') %></li>
+      <% end %>
+      <% if @and_tags.present? %>
+        <li>With ALL tags: <%= @and_tags.map(&:name).join(', ') %></li>
+      <% end %>
+      <% if @or_tags.present? %>
+        <li>With ANY tags: <%= @or_tags.map(&:name).join(', ') %></li>
+      <% end %>
+      <% if @not_tags.present? %>
+        <li>Without tags: <%= @not_tags.map(&:name).join(', ') %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <% if @links.present? %>
+    <div id="search_results">
+      <h2>Links</h2>
+      <% @links.each do |link| %>
+        <%= render "links/preview", link: link %>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No results found</p>
+    <p>
+      Don't see what you're looking for?
+      Try <%= link_to "processing some links", unprocessed_links_path %> yourself, to make sure they have the correct tags!
+    </p>
+  <% end %>
+</div>
