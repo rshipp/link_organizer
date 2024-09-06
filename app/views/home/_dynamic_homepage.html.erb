@@ -11,7 +11,7 @@
     </div>
 
     <div id="selected_topics">
-      <h2>Top topics</h2>
+      <h2>Topics</h2>
       <p>
         <% Tag.where(category: "topic").map {|t| [t.links.count, t]}.sort.last(10).reverse.each do |count, tag| %>
           <%= link_to tag.name, tag, target: "_top" %> (<%= count %>),
