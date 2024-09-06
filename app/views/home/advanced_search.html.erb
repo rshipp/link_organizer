@@ -4,7 +4,7 @@
   <h1 class="text-center">Search <%= Rails.application.config.site_topic %> Links</h1>
 
   <div id="search" class="m-0 w-full md:m-auto md:w-fit">
-    <%= form_with url: advanced_search_results_path, method: 'GET', class: 'not-prose' do |form| %>
+    <%= form_with url: advanced_search_results_path, method: 'GET', data: {turbo: false}, class: 'not-prose' do |form| %>
       <%= form.text_field :query, 
             value: @query,
             type: 'search',
