@@ -20,8 +20,8 @@
         </ul>
       </details>
 
-      <fieldset class="mt-2">
-        <legend class="font-medium">Search in</legend>
+      <fieldset class="mt-4">
+        <legend>Search in:</legend>
         <%= form.collection_check_boxes :search_in, 
               ['title', 'notes', 'source_comment', 'full_text'],
               :to_s, :humanize do |b| %>
