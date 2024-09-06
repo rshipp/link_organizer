@@ -7,3 +7,10 @@
     min-width: 20rem;
   }
 }
+
+.search-page-combobox {
+  fieldset.hw-combobox {
+    width: 100%;
+    max-width: 32rem;
+  }
+}

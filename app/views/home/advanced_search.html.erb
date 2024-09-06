@@ -32,7 +32,7 @@
         <% end %>
       </fieldset>
 
-      <div class="tag-combobox mt-4">
+      <div class="tag-combobox search-page-combobox mt-4">
         <%= form.combobox :and_tags,
               Tag.all.order(:name),
               label: 'With ALL of these tags',
