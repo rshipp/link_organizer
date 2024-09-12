@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "dynamic_homepage", target: "_top", refresh: "morph" do %>
-  <% if links.present? || tags.present? %>
+  <% if @query.present? %>
     <%= render "search_results", links: @links, tags: @tags, query: @query %>
   <% else %>
     <div id="selected_links">
