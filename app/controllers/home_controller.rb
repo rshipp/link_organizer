@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
   before_action :set_query
 
+  ALLOWED_SEARCH_FIELDS = ['title', 'notes', 'comment', 'text']
+
   def index
     if @query.present?
       @tags = Tag.where("name like ?", "%#{ActiveRecord::Base.sanitize_sql_like(@query)}%").order(:name)
@@ -24,9 +26,13 @@ class HomeController < ApplicationController
   end
 
   def advanced_search_results
-    # TODO: Tokenize query
-    query = params[:query].split
+    # Tokenize query.
+    query = SearchTokenizer.tokenize(params[:query])
 
+    # Restrict search_in to allowed fields.
+    search_in = ALLOWED_SEARCH_FIELDS.intersection(params[:search_in])
+
+    # Construct tag queries.
     @and_tags = Tag.where(id: params[:and_tags].split(','))
     @or_tags = Tag.where(id: params[:or_tags].split(','))
     @not_tags = Tag.where(id: params[:not_tags].split(','))
@@ -35,16 +41,13 @@ class HomeController < ApplicationController
     or_tag_links = Link.where(id: @or_tags.map {|t| t.links}.flatten.map {|l| l.id}.uniq)
     not_tag_links = Link.where.not(id: @not_tags.map {|t| t.links}.flatten.map {|l| l.id}.uniq)
 
-    # Then tie it all together.
+    # Do the actual field search.
     @links = Link.all
-    if params[:query].present?
-      # TODO: Real search
-      query = query.join(' ')
-      @links = @links.where("title like ?", "%#{ActiveRecord::Base.sanitize_sql_like(query)}%")
-        .or(Link.where("comment like ?", "%#{ActiveRecord::Base.sanitize_sql_like(query)}%"))
-        .or(Link.where("notes like ?", "%#{ActiveRecord::Base.sanitize_sql_like(query)}%"))
+    if query.present? && search_in.present?
+      @links = SearchConstructor.construct(Link, search_in, query)
     end
 
+    # Then tie it all together.
     if @and_tags.present?
       @links = @links.and(and_tag_links)
     end

@@ -23,10 +23,10 @@
       <fieldset class="mt-4">
         <legend>Search in:</legend>
         <%= form.collection_check_boxes :search_in, 
-              ['title', 'notes', 'source_comment', 'full_text'],
+              ['title', 'notes', 'comment', 'text'],
               :to_s, :humanize do |b| %>
           <div>
-            <% checked = b.text != 'full_text'.humanize %>
+            <% checked = b.text != 'text'.humanize %>
             <%= b.label(class: "inline-flex items-center") { b.check_box(checked: checked) + b.text } %>
           </div>
         <% end %>
