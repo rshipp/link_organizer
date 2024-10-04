@@ -78,8 +78,8 @@
             aria: { describedby: "archive-url-desc" },
             data: { 'archive-target': 'input' } %>
       <p id="archive-url-desc" class="text-sm">
-        Archived copy of this link on <%= link_to 'archive.is', 'https://archive.is', target: "_blank" %>
-        or <%= link_to 'web.archive.org', 'https://web.archive.org/', target: "_blank" %>.
+        Archived copy of this link on <%= link_to 'archive.is', "https://archive.is/submit/?url=#{@link.url}", target: "_blank" %>
+        or <%= link_to 'web.archive.org', "https://web.archive.org/web/*/#{@link.url}", target: "_blank" %>.
       </p>
     </div>
 
