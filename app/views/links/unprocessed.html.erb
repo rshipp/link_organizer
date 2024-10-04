@@ -22,12 +22,13 @@
   </p>
   <p>
     There are <%= @links.count %> unprocessed links remaining
-    <% if params[:no_topics] || params[:no_source_types] || params[:no_archive] %>
+    <% if params[:no_topics] || params[:no_source_types] || params[:no_archive] || params[:tag] %>
       with
       <%= [
         params[:no_topics] && 'no topics',
         params[:no_source_types] && 'no source types',
         params[:no_archive] && 'no archived copy',
+        params[:tag] && "the tag '#{params[:tag]}'",
       ].compact_blank.join(' and ') %>
     <% end %>
     (out of <%= Link.count %> total).

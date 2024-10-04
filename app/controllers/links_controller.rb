@@ -21,6 +21,10 @@ class LinksController < ApplicationController
     if params[:no_archive]
       @links = @links.filter { |l| l.archive_url&.empty? }
     end
+
+    if params[:tag]
+      @links = @links.filter { |l| l.source_types.include? Tag.find_by(name: params[:tag]) }
+    end
   end
 
   # GET /links/1 or /links/1.json
