@@ -1,4 +1,6 @@
-<h1>Editing tag</h1>
+<%= content_for :title, "Edit Tag: #{@tag.name}" %>
+
+<h1>Editing tag: <%= @tag.name %></h1>
 
 <%= render "form", tag: @tag %>
 

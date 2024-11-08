@@ -1,3 +1,9 @@
+<% if @link.title.present? %>
+  <%= content_for :title, @link.title + " | #{url_domain(@link.url)}"%>
+<% else %>
+  <%= content_for :title, @link.url %>
+<% end %>
+
 <p style="color: green"><%= notice %></p>
 
 <p><%= link_to 'Home', root_path %></p>

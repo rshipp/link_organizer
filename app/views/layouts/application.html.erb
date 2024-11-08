@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Link Organizer</title>
+    <title id="page-title"><%= ("#{yield(:title)} | " unless yield(:title).blank?).to_s + site_name %></title>
+
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

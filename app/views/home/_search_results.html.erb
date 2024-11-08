@@ -1,4 +1,7 @@
 <%= turbo_frame_tag "search_results", target: "_top", refresh: "morph" do %>
+  <turbo-stream action="update" target="page-title">
+    <template><%= query + " | " + site_name %></template>
+  </turbo-stream>
   <% if links.present? || tags.present? %>
     <div id="search_results">
       <% if links.present? %>

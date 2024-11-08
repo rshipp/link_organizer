@@ -1,3 +1,5 @@
+<%= content_for :title, "Edit Link: #{@link.title.present? ? @link.title : @link.url}" %>
+
 <p><%= link_to 'Home', root_path %></p>
 
 <h1>Editing link</h1>

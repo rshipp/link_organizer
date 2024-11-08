@@ -1,5 +1,5 @@
 <p>
-  <small><%= URI.parse(link.url).host.sub(/\Awww\./, '') %></small>
+  <small><%= url_domain(link.url) %></small>
   <br/>
   <% link.source_types.each do |source_type| %>
     <%= source_type_icon(source_type.name) %>

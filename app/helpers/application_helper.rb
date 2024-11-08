@@ -29,4 +29,12 @@ module ApplicationHelper
 
     raw("<span aria-hidden='true'>#{emoji}</span>")
   end
+
+  def url_domain(url)
+    URI.parse(url).host.sub(/\Awww\./, '')
+  end
+
+  def site_name
+    "#{Rails.application.config.site_topic} Links"
+  end
 end
