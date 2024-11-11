@@ -19,7 +19,7 @@ class LinksController < ApplicationController
     end
 
     if params[:no_archive]
-      @links = @links.filter { |l| l.archive_url&.empty? }
+      @links = @links.filter { |l| !l.archive_url&.present? }
     end
 
     if params[:tag]
