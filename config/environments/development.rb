@@ -37,9 +37,27 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.perform_deliveries = true
+#  config.action_mailer.delivery_method = :smtp
+#  config.action_mailer.smtp_settings = {
+#    :tls => true,
+#    :address => Rails.application.secrets.smtp_server,
+#    :port => Rails.application.secrets.smtp_port,
+#    :domain => Rails.application.secrets.smtp_domain,
+#    :user_name => Rails.application.secrets.smtp_username,
+#    :password => Rails.application.secrets.smtp_password,
+#    :authentication => :login,
+#    #:enable_starttls_auto => true # for rails >= 2.2 && ruby >= 1.8.7
+#  }
+
+  # For passwordless
+  port = ENV.fetch('PORT') { '3000' }
+  config.action_mailer.default_url_options = {host: "localhost:#{port}"}
+  routes.default_url_options[:host] ||= "localhost:#{port}"
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

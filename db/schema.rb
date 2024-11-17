@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_15_200112) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_15_182048) do
   create_table "links", force: :cascade do |t|
     t.string "url"
     t.string "source_url"
@@ -37,6 +37,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_15_200112) do
     t.index ["tag_id"], name: "index_links_tags_on_tag_id"
   end
 
+  create_table "passwordless_sessions", force: :cascade do |t|
+    t.string "authenticatable_type"
+    t.integer "authenticatable_id"
+    t.datetime "timeout_at", precision: nil, null: false
+    t.datetime "expires_at", precision: nil, null: false
+    t.datetime "claimed_at", precision: nil
+    t.string "token_digest", null: false
+    t.string "identifier", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["authenticatable_type", "authenticatable_id"], name: "authenticatable"
+    t.index ["identifier"], name: "index_passwordless_sessions_on_identifier", unique: true
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.string "category"
@@ -44,6 +58,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_15_200112) do
     t.datetime "updated_at", null: false
     t.text "description"
     t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", null: false
+    t.boolean "admin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "LOWER(email)", name: "index_users_on_lowercase_email", unique: true
   end
 
   add_foreign_key "links_tags", "links"

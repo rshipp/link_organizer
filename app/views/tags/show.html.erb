@@ -2,8 +2,6 @@
 
 <p style="color: green"><%= notice %></p>
 
-<p><%= link_to 'Home', root_path %></p>
-
 <h1><%= @tag.category&.humanize %>: <%= @tag.name&.humanize %></h1>
 
 <div><%= markdown(@tag.description || '') %></div>

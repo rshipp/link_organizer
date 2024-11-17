@@ -17,8 +17,20 @@
   </head>
 
   <body>
+
     <main class="container w-md mx-auto mt-12 px-5 mb-28">
       <div class="prose max-w-none">
+        <p class="header">
+          <span>
+            <%= link_to 'Home', root_path %>
+          </span>
+          <% if current_user %>
+            <span><%= link_to "Sign out #{current_user.email}", users_sign_out_path %></span>
+          <% else %>
+            <span><%= link_to 'Sign in', users_sign_in_path %></span>
+          <% end %>
+        </p>
+
         <%= yield %>
       </div>
     </main>

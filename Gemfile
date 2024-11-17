@@ -72,3 +72,5 @@ gem "tailwindcss-rails"
 gem "httpclient"
 gem "nokogiri"
 gem "redcarpet"
+
+gem "passwordless", "~> 1.8"
