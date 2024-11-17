@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   ### Admin users
   constraints Passwordless::Constraint.new(User, if: -> (user) { user.admin }) do
-    resources :links, only: [:destroy]
-    resources :tags, only: [:destroy]
+    resources :links, only: [:edit, :update, :destroy]
+    resources :tags, only: [:new, :create, :edit, :update, :destroy]
     resources :queued_links, only: [:index, :show, :destroy] do
       post :apply, to: 'queued_links#apply', on: :member
     end
@@ -12,8 +12,7 @@ Rails.application.routes.draw do
 
   ### Logged-in users
   constraints Passwordless::Constraint.new(User) do
-    resources :tags, only: [:new, :create, :update, :edit]
-    resources :links, only: [:new, :create, :update, :edit] do
+    resources :links, only: [:new, :create] do
       get :import, to: 'links#import_new', on: :collection
       post :import, to: 'links#import_create', on: :collection
       post :import, to: 'links#run_import', on: :member

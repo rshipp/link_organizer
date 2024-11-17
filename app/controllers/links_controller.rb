@@ -3,7 +3,12 @@ class LinksController < ApplicationController
 
   # GET /links or /links.json
   def index
-    @links = Link.all
+    if current_user&.admin
+      @links = Link.all
+    else
+      # Hide links with a low rating for non-admins.
+      @links = Link.where('rating > ?', 3).or(Link.where(rating: nil))
+    end
   end
 
   # GET /links/unprocessed
@@ -44,14 +49,25 @@ class LinksController < ApplicationController
   def import_create
     links = params.require(:links).split
 
-    links.each do |link|
-      Rails.logger.debug("Enqueuing job with url=#{link}")
-      ImportLinkJob.perform_later(link)
-    end
+    if current_user&.admin
+      links.each do |link|
+        Rails.logger.debug("Enqueuing job with url=#{link}")
+        ImportLinkJob.perform_later(link)
+      end
 
-    respond_to do |format|
-      format.html { redirect_to unprocessed_links_url, notice: "Link import started. It may take a few minutes for new links to appear." }
-      format.json { render :show, status: :created, location: unprocessed_links_url }
+      respond_to do |format|
+        format.html { redirect_to unprocessed_links_url, notice: "Link import started. It may take a few minutes for new links to appear." }
+        format.json { render :show, status: :created, location: unprocessed_links_url }
+      end
+    elsif current_user
+      links.each do |link|
+        QueuedLink.create(url: link, user: current_user)
+      end
+
+      respond_to do |format|
+        format.html { redirect_to root_url, notice: "Links added to queue. Thank you!" }
+        format.json { render :show, status: :created, location: root_url }
+      end
     end
   end
 
@@ -61,16 +77,34 @@ class LinksController < ApplicationController
 
   # POST /links or /links.json
   def create
-    @link = Link.new(link_params)
+    if current_user&.admin
+      @link = Link.new(link_params)
 
-    respond_to do |format|
-      if @link.save
-        update_tags
-        format.html { redirect_to link_url(@link), notice: "Link was successfully created." }
-        format.json { render :show, status: :created, location: @link }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @link.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @link.save
+          update_tags
+          format.html { redirect_to link_url(@link), notice: "Link was successfully created." }
+          format.json { render :show, status: :created, location: @link }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @link.errors, status: :unprocessable_entity }
+        end
+      end
+    elsif current_user
+      @queued_link = QueuedLink.new(
+        url: link_params[:url],
+        data: link_params.except(:url),
+        user: current_user,
+      )
+
+      respond_to do |format|
+        if @queued_link.save
+          format.html { redirect_to root_path, notice: "Link added to queue. Thank you!" }
+          format.json { render json: {}, status: :created }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @queued_link.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

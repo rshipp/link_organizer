@@ -11,20 +11,27 @@
   <%= render "links/preview", link: link %>
 <% end %>
 
-<div>
-  <br/>
-  <p>
-    Don't see what you're looking for?
-    Try <%= link_to "processing some links", unprocessed_links_path %> yourself, to make sure they have the correct tags!
-  </p>
-</div>
+<% if current_user&.admin %>
+  <div>
+    <br/>
+    <p>
+      Don't see what you're looking for?
+      Try <%= link_to "processing some links", unprocessed_links_path %> yourself, to make sure they have the correct tags!
+    </p>
+  </div>
 
-<div>
-  <br/>
-  <%= link_to "Edit this tag", edit_tag_path(@tag) %> |
-  <%= link_to "View all tags", tags_path %>
-</div>
-<div>
-  <br/>
-  <%= button_to "Destroy this tag", @tag, method: :delete, class: "btn-danger", form: { data: { turbo_confirm: 'Are you sure?' } } %>
-</div>
+  <div>
+    <br/>
+    <%= link_to "Edit this tag", edit_tag_path(@tag) %> |
+    <%= link_to "View all tags", tags_path %>
+  </div>
+  <div>
+    <br/>
+    <%= button_to "Destroy this tag", @tag, method: :delete, class: "btn-danger", form: { data: { turbo_confirm: 'Are you sure?' } } %>
+  </div>
+<% else %>
+  <div>
+    <br/>
+    <%= link_to "View all tags", tags_path %>
+  </div>
+<% end %>

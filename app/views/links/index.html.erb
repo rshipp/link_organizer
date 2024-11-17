@@ -10,5 +10,7 @@
   <% end %>
 </div>
 
-<%= link_to "Import new links", import_links_path %> |
-<%= link_to "Manually add new link", new_link_path %>
+<% if current_user %>
+  <%= link_to "Import new links", import_links_path %> |
+  <%= link_to "Manually add new link", new_link_path %>
+<% end %>

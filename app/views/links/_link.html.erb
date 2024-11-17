@@ -1,12 +1,4 @@
 <div id="<%= dom_id link %>">
-  <% unless link.processed %>
-    <p class="text-red-700">
-      Note: This link is unprocessed.
-      You can help by <%= link_to "processing new links", unprocessed_links_path %>,
-      or directly <%= link_to "editing this one", edit_link_path(link) %>!
-    </p>
-  <% end %>
-
   <h1><%= link.title %></h1>
 
   <%= link_to link.url, link.url %>
@@ -52,12 +44,14 @@
     <% end %>
   </ul>
 
-  <h2>Text</h2>
-  <details>
-    <summary>Expand full text</summary>
-    <pre class="whitespace-pre-wrap bg-white font-sans text-black text-base">
-      <%= link.text %>
-    </pre>
-  </details>
+  <% if current_user&.admin %>
+    <h2>Text</h2>
+    <details>
+      <summary>Expand full text</summary>
+      <pre class="whitespace-pre-wrap bg-white font-sans text-black text-base">
+        <%= link.text %>
+      </pre>
+    </details>
+  <% end %>
   <br>
 </div>

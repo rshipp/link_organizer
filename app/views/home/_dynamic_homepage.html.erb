@@ -36,8 +36,16 @@
 
     <div id="contribute">
       <h2>Contribute</h2>
-      <p><%= link_to "Add new links", import_links_path %></p>
-      <p><%= link_to "Tag and summarize unprocessed links", unprocessed_links_path %></p>
+      <% if current_user %>
+        <p><%= link_to "Add new links", import_links_path %></p>
+      <% else %>
+        <p><%= link_to "Create an account", users_sign_in_path %> to add new links. Your email will not be public, and will never be used except to send you sign-in codes when you request them.</p>
+      <% end %>
+      <p>There are currently <%= QueuedLink.count %> user-submitted links in the queue, awaiting approval.</p>
+      <% if current_user&.admin %>
+        <p><%= link_to "Tag and summarize unprocessed links", unprocessed_links_path %></p>
+        <p><%= link_to "Process queued links", queued_links_path %></p>
+      <% end %>
     </div>
   <% end %>
 <% end %>
