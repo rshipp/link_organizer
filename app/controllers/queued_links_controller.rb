@@ -2,6 +2,7 @@ class QueuedLinksController < ApplicationController
   before_action :set_queued_link, only: %i[ show apply destroy ]
 
   def index
+    @queued_links = QueuedLink.all
   end
 
   def show

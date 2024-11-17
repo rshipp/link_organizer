@@ -1,0 +1,11 @@
+<%= content_for :title, "Queue" %>
+
+<p style="color: green"><%= notice %></p>
+
+<h1>Queue</h1>
+
+<div id="queue">
+  <% @queued_links.order(:created_at).reverse.each do |link| %>
+    <p><% link.url %></p>
+  <% end %>
+</div>
