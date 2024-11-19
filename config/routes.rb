@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   ### Admin users
   constraints Passwordless::Constraint.new(User, if: -> (user) { user.admin }) do
-    resources :links, only: [:edit, :update, :destroy]
+    resources :links, only: [:edit, :update, :destroy] do
+      get :unprocessed, to: 'links#unprocessed', on: :collection
+    end
     resources :tags, only: [:new, :create, :edit, :update, :destroy]
     resources :queued_links, only: [:index, :show, :destroy] do
       post :apply, to: 'queued_links#apply', on: :member
@@ -16,7 +18,6 @@ Rails.application.routes.draw do
       get :import, to: 'links#import_new', on: :collection
       post :import, to: 'links#import_create', on: :collection
       post :import, to: 'links#run_import', on: :member
-      get :unprocessed, to: 'links#unprocessed', on: :collection
     end
     # combobox
     post "possibly_new_tag_chips", to: "tag_chips#create_possibly_new"
