@@ -1,0 +1,22 @@
+<h1>Queued link #<%= @queued_link.id %></h1>
+
+<p>
+  URL: 
+  <% link = Link.find_by(url: @queued_link.url) %>
+  <% if link.present? %>
+    (<%= link_to 'already exists', link %>) -
+  <% end %>
+  <%= link_to @queued_link.url, @queued_link.url %>
+</p>
+<p>User: <%= @queued_link.user.email %></p>
+<% if @queued_link.data.present? %>
+  <% @queued_link.data.each do |key, value| %>
+    <p><%= key.humanize %>: <%= value %></p>
+  <% end %>
+<% end %>
+
+<br />
+<%= form_with url: apply_queued_link_path, method: :post do |form| %>
+  <%= form.submit 'Import link', class: 'btn-danger', data: { turbo_confirm: 'Are you sure? This link will be imported.' } %>
+<% end %>
+<%= button_to 'Delete link from queue', @queued_link, method: :delete, class: 'btn-danger', form: { data: { turbo_confirm: 'Are you sure? This link will be removed from the queue.' } } %>

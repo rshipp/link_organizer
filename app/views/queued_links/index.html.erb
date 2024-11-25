@@ -4,6 +4,6 @@
 
 <div id="queue">
   <% @queued_links.order(:created_at).reverse.each do |link| %>
-    <p><% link.url %></p>
+    <p><%= link_to link.url, link %></p>
   <% end %>
 </div>
