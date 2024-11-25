@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  passwordless_for :users
+  passwordless_for :users, controller: 'sessions'
 
   ### Admin users
   constraints Passwordless::Constraint.new(User, if: -> (user) { user.admin }) do

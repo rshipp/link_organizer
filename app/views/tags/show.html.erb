@@ -1,7 +1,5 @@
 <%= content_for :title, @tag.name.humanize %>
 
-<p style="color: green"><%= notice %></p>
-
 <h1><%= @tag.category&.humanize %>: <%= @tag.name&.humanize %></h1>
 
 <div><%= markdown(@tag.description || '') %></div>

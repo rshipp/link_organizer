@@ -32,6 +32,13 @@
           <% end %>
         </p>
 
+        <% if flash[:notice] %>
+          <p style="color: green"><%= notice %></p>
+        <% end %>
+        <% if flash[:alert] %>
+          <p style="color: red"><%= alert %></p>
+        <% end %>
+
         <%= yield %>
       </div>
     </main>
