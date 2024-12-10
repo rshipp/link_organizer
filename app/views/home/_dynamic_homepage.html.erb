@@ -51,7 +51,7 @@
         <p><%= link_to "Tag and summarize unprocessed links", unprocessed_links_path %></p>
         <p><%= link_to "Process queued links", queued_links_path %></p>
       <% end %>
-      <p>There are currently <%= QueuedLink.count %> user-submitted links in the queue, awaiting approval.</p>
+      <p>There are currently <%= QueuedLink.active.count %> user-submitted links in the queue, awaiting approval.</p>
     </div>
   <% end %>
 <% end %>
