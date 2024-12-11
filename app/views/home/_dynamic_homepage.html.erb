@@ -16,8 +16,8 @@
     <div id="selected_topics">
       <h2>Topics</h2>
       <p>
-        <% Tag.where(category: "topic").map {|t| [t.links.count, t]}.sort.last(10).reverse.each do |count, tag| %>
-          <%= link_to tag.name, tag, target: "_top" %> (<%= count %>),
+        <% Tag.top_topics.each do |count, tag_name, tag_id| %>
+          <%= link_to tag_name, tag_path(tag_id), target: "_top" %> (<%= count %>),
         <% end %>
         <%= link_to "more >>", tags_url %>
       </p>
@@ -26,9 +26,9 @@
     <div id="source_types">
       <h2>Source types</h2>
       <p>
-        <% Tag.where(category: "source_type").map {|t| [t.links.count, t]}.sort.last(7).reverse.each do |count, tag| %>
-          <%= source_type_icon(tag.name) %>
-          <%= link_to tag.name.humanize, tag, target: "_top" %> (<%= tag.links.count %>),
+        <% Tag.top_source_types.each do |count, tag_name, tag_id| %>
+          <%= source_type_icon(tag_name) %>
+          <%= link_to tag_name.humanize, tag_path(tag_id), target: "_top" %> (<%= count %>),
         <% end %>
         <%= link_to "more >>", tags_url %>
       </p>
